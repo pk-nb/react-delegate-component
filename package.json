@@ -12,7 +12,8 @@
     "renderProps",
     "react",
     "delegation",
-    "delegate"
+    "delegate",
+    "component"
   ],
   "bugs": {
     "url": "https://github.com/pk-nb/react-delegate-component/issues"

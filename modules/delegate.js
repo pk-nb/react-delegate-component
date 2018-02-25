@@ -48,6 +48,10 @@ class Delegate extends React.Component {
     const { to, render, children, default: Default, passDefault } = this.props;
     const Render = to || render || children;
 
+    if (!Render && !Default) {
+      return null;
+    }
+
     if (!Render) {
       return <Default {...this.props.props} />;
     }

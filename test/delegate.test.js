@@ -1,6 +1,6 @@
 import React from "react";
 import { mount, render, configure } from "enzyme";
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from "enzyme-adapter-react-16";
 
 import Delegate from "../modules/delegate";
 
@@ -21,6 +21,10 @@ describe("<Delegate />", () => {
         return <p>{this.state.label}</p>;
       }
     }
+
+    it("renders nothing with no props", () => {
+      expect(mount(<Delegate />).html()).toEqual(null);
+    });
 
     it("to prop takes function", () => {
       const delegate = mount(<Delegate to={FunctionalComponent} />);
@@ -74,7 +78,11 @@ describe("<Delegate />", () => {
 
     it("allows user to render default from delegate", () => {
       function MyComponent({ icon, Default }) {
-        return <span>{icon} - <Default /></span>
+        return (
+          <span>
+            {icon} - <Default />
+          </span>
+        );
       }
 
       MyComponent.displayName = "MyComponent";
@@ -92,7 +100,11 @@ describe("<Delegate />", () => {
 
     it("allows user to render default from delegate with overrides", () => {
       function MyComponent({ icon, Default }) {
-        return <span><Default label={icon} /></span>
+        return (
+          <span>
+            <Default label={icon} />
+          </span>
+        );
       }
 
       MyComponent.displayName = "MyComponent";
@@ -117,7 +129,7 @@ describe("<Delegate />", () => {
         return <Default />;
       }
 
-      expect(() => (
+      expect(() =>
         render(
           <Delegate
             to={MyComponent}
@@ -126,7 +138,7 @@ describe("<Delegate />", () => {
             props={{ label: "Find..." }}
           />
         )
-      )).toThrow("do not have default");
+      ).toThrow("do not have default");
     });
   });
 
@@ -144,17 +156,13 @@ describe("<Delegate />", () => {
     OtherComponent.displayName = "OtherComponent";
 
     it("does not generate when `passDefault` is false", () => {
-      const wrapper = mount(
-        <Delegate default={DefaultComponent} passDefault={false} />
-      );
+      const wrapper = mount(<Delegate default={DefaultComponent} passDefault={false} />);
 
       expect(wrapper.instance().Default).not.toBeDefined();
     });
 
     it("does not regenerate intermediate function if default prop is the same", () => {
-      const wrapper = mount(
-        <Delegate default={DefaultComponent} />
-      );
+      const wrapper = mount(<Delegate default={DefaultComponent} />);
 
       const firstDefault = wrapper.instance().Default;
       expect(firstDefault).toBeDefined();
@@ -165,9 +173,7 @@ describe("<Delegate />", () => {
     });
 
     it("regenerates intermediate function if default changes", () => {
-      const wrapper = mount(
-        <Delegate default={DefaultComponent} />
-      );
+      const wrapper = mount(<Delegate default={DefaultComponent} />);
 
       const firstDefault = wrapper.instance().Default;
       expect(firstDefault).toBeDefined();
