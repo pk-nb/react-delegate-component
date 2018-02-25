@@ -1,0 +1,18 @@
+{
+  "name": "react-delegate-component",
+  "version": "1.0.0",
+  "description": "A component that makes renderProps great, allowing callers to use functional and class components with a default.",
+  "main": "index.js",
+  "repository": "https://github.com/pk-nb/react-delegate-component",
+  "author": "Nathanael Beisiegel",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "react": ">=15"
+  },
+  "devDependencies": {
+    "jest": "^22.4.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0"
+  }
+}
