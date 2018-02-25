@@ -7,12 +7,62 @@
   "author": "Nathanael Beisiegel",
   "license": "MIT",
   "private": false,
+  "keywords": [
+    "render-props",
+    "renderProps",
+    "react",
+    "delegation",
+    "delegate"
+  ],
+  "bugs": {
+    "url": "https://github.com/pk-nb/react-delegate-component/issues"
+  },
+  "files": [
+    "index.js",
+    "yarn.lock"
+  ],
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
   "peerDependencies": {
     "react": ">=15"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "husky": "^0.14.3",
     "jest": "^22.4.2",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0"
+    "lint-staged": "^7.0.0",
+    "prettier": "1.10.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "scripts": {
+    "build": "babel modules/delegate.js --out-file index.js",
+    "test": "jest",
+    "clean": "rm -f index.js",
+    "precommit": "lint-staged"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ]
+  },
+  "prettier": {
+    "printWidth": 100
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
