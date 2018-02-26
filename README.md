@@ -12,13 +12,13 @@ These are all reasonable things you will likely want to provide functionality fo
 
 ```js
 <Delegate
-  to={this.renderItem}
+  to={props.renderItem}
   default={DefaultItem}
-  props{{ label: this.props.items[i] }}
+  props={{ label: props.items[i] }}
 />
 ```
 
-If you are unfamiliar with delegation as a pattern, I recommend reading through the [motivation section](#motivation) in this README and [reading up on renderProps](https://reactjs.org/docs/render-props.html). Note that many examples in the wild only use a single renderProp (`render` or `children`), but you can have many depending on what you need to delegate.
+If you are unfamiliar with delegation as a pattern, I recommend reading through the [usage section](#usage) in this README and [reading up on renderProps](https://reactjs.org/docs/render-props.html). Note that many examples in the wild only use a single renderProp (`render` or `children`), but you can have many depending on what you need to delegate.
 
 
 This Component will work for both React and React Native as it does not render any specific markup.
@@ -65,7 +65,7 @@ function DefaultItem({ label }) {
   );
 }
 
-class FlexibleList extends React.Component {
+class FancyList extends React.Component {
   static propTypes = {
     labels: arrayOf(string).isRequired
     renderItem: func
@@ -76,7 +76,7 @@ class FlexibleList extends React.Component {
       <div {...fancyStyles}>
         {labels.map(label => (
           <Delegate
-            to={this.renderItem}
+            to={this.props.renderItem}
             default={DefaultItem}
             props={{ label }}
           />
@@ -91,24 +91,24 @@ const items = ["Apples", "Bananas", "Carrots"];
 
 
 // Default list
-<FlexibleList items={items} />
+<FancyList items={items} />
 
 // Replacing inline
-<FlexibleList items={items} renderItem={({ label }) => <div></div>} />
+<FancyList items={items} renderItem={({ label }) => <strong>{label}</strong>} />
 
 // Replacing with any Component (functional or class)
-<FlexibleList items={items} renderItem={EvenFancierItem} />
+<FancyList items={items} renderItem={EvenFancierItem} />
 
 // Extending default with additional markup
-<FlexibleList
+<FancyList
   items={items}
-  renderItem={({ label, Default }) => <div><Checkbox /><Default></div>}
+  renderItem={({ label, Default }) => <div><Checkbox /><Default /></div>}
 />
 
 // Extending default with additional markup, overriding label on Default
-<FlexibleList
+<FancyList
   items={items}
-  renderItem={({ label, Default }) => <div><Default label={`${label}!!!`}></div>}
+  renderItem={({ label, Default }) => <div><Default label={`${label}!!!`} /></div>}
 />
 ```
 
